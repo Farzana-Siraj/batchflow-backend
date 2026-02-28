@@ -1,0 +1,13 @@
+black==26.1.0
+celery==5.6.2
+Django==6.0.2
+django-filter==25.2
+djangorestframework==3.16.1
+djangorestframework_simplejwt==5.5.1
+drf-spectacular==0.29.0
+flake8==7.3.0
+isort==8.0.0
+psycopg2-binary==2.9.11
+python-dotenv==1.2.1
+redis==7.2.1
+requests==2.32.5
