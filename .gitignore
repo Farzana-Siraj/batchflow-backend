@@ -1,7 +1,25 @@
-.env
-
+# Python cache
 __pycache__/
+*.py[cod]
 *.pyc
 
-# Local database
+# Django migrations (ignore generated migration files)
+**/migrations/
+!**/migrations/__init__.py
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# Environment variables
+.env
+
+# Local Database
 db.sqlite3
+
+# Logs
+*.log
+
+README.md
+*.pdf
