@@ -147,4 +147,8 @@ STATIC_URL = "static/"
 
 AUTH_USER_MODEL = 'accounts.User'
 
+AUTHENTICATION_BACKENDS = [
+    "django.contrib.auth.backends.ModelBackend",
+]
+
 CELERY_BROKER_URL = os.getenv("REDIS_URL")
