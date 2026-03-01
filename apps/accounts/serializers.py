@@ -6,6 +6,7 @@ from rest_framework.exceptions import AuthenticationFailed
 class LoginSerializer(serializers.Serializer):
     """
     Serializer for user login."""
+
     email = serializers.EmailField()
     password = serializers.CharField(write_only=True)
 
@@ -13,7 +14,7 @@ class LoginSerializer(serializers.Serializer):
         user = authenticate(
             request=self.context.get("request"),
             email=data.get("email"),
-            password=data.get("password")
+            password=data.get("password"),
         )
 
         if not user:
