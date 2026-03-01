@@ -1,6 +1,8 @@
+from django.conf import settings
 from django.contrib.auth import authenticate
 from rest_framework import serializers
 from rest_framework.exceptions import AuthenticationFailed
+from rest_framework_simplejwt.tokens import RefreshToken
 
 
 class LoginSerializer(serializers.Serializer):
@@ -24,3 +26,25 @@ class LoginSerializer(serializers.Serializer):
             raise AuthenticationFailed("User account is disabled")
 
         return user
+
+
+class RefreshSerializer(serializers.Serializer):
+    """
+    Serializer for refreshing JWT tokens."""
+
+    refreshToken = serializers.CharField()
+
+    def validate(self, data):
+        refresh_token = data.get("refreshToken")
+
+        try:
+            refresh = RefreshToken(refresh_token)
+        except Exception:
+            raise AuthenticationFailed("Invalid or expired refresh token")
+
+        return {
+            "accessToken": str(refresh.access_token),
+            "expiresIn": int(
+                settings.SIMPLE_JWT["ACCESS_TOKEN_LIFETIME"].total_seconds()
+            ),
+        }

@@ -4,13 +4,16 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from .serializers import LoginSerializer
+from .serializers import LoginSerializer, RefreshSerializer
 
 
 class LoginView(APIView):
+    """View for user login."""
+
     permission_classes = [permissions.AllowAny]
 
     def post(self, request):
+        """Handle POST request for user login."""
         serializer = LoginSerializer(data=request.data, context={"request": request})
 
         serializer.is_valid(raise_exception=True)
@@ -35,3 +38,16 @@ class LoginView(APIView):
             },
             status=status.HTTP_200_OK,
         )
+
+
+class RefreshView(APIView):
+    """View for refreshing JWT tokens."""
+
+    permission_classes = [permissions.AllowAny]
+
+    def post(self, request):
+        """Handle POST request to refresh JWT tokens."""
+        serializer = RefreshSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        return Response(serializer.validated_data, status=status.HTTP_200_OK)
