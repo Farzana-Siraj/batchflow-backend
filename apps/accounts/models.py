@@ -33,7 +33,6 @@ class User(AbstractUser):
     """Custom user model with email as the unique identifier."""
 
     username = None
-
     email = models.EmailField(unique=True)
 
     ROLE_CHOICES = (
