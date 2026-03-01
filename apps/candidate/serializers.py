@@ -39,3 +39,18 @@ class CandidateCreateSerializer(serializers.ModelSerializer):
         if not value.strip():
             raise serializers.ValidationError("Name cannot be empty.")
         return value
+
+
+class CandidateSearchSerializer(serializers.ModelSerializer):
+
+    currentStatus = serializers.CharField(source="current_status")
+
+    class Meta:
+        model = Candidate
+        fields = [
+            "id",
+            "name",
+            "email",
+            "currentStatus",
+            "created_at",
+        ]
