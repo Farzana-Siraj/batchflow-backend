@@ -48,3 +48,21 @@ class RefreshSerializer(serializers.Serializer):
                 settings.SIMPLE_JWT["ACCESS_TOKEN_LIFETIME"].total_seconds()
             ),
         }
+
+
+class LogoutSerializer(serializers.Serializer):
+    """
+    Serializer for user logout."""
+
+    refreshToken = serializers.CharField()
+
+    def validate(self, data):
+        refresh_token = data.get("refreshToken")
+
+        try:
+            refresh = RefreshToken(refresh_token)
+            refresh.blacklist()
+        except Exception:
+            raise AuthenticationFailed("Invalid or expired refresh token")
+
+        return {"detail": "Logout successful"}

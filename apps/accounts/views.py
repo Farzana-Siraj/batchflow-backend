@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from .serializers import LoginSerializer, RefreshSerializer
+from .serializers import LoginSerializer, LogoutSerializer, RefreshSerializer
 
 
 class LoginView(APIView):
@@ -51,3 +51,16 @@ class RefreshView(APIView):
         serializer.is_valid(raise_exception=True)
 
         return Response(serializer.validated_data, status=status.HTTP_200_OK)
+
+
+class LogoutView(APIView):
+    """View for user logout."""
+
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request):
+        """Handle POST request for user logout."""
+        serializer = LogoutSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        return Response({"detail": "Logout successful"}, status=status.HTTP_200_OK)
