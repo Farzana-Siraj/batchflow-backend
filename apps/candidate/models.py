@@ -32,4 +32,6 @@ class Candidate(models.Model):
         indexes = [
             models.Index(fields=["current_status"]),
             models.Index(fields=["created_at"]),
+            # composite index for batch selection - batch selection faster in largedata
+            models.Index(fields=["current_status", "picked_at"]),
         ]
