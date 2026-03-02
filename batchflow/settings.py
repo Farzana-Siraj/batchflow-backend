@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     # Local apps
     "apps.accounts",
     "apps.candidate",
+    "apps.batches",
 ]
 
 MIDDLEWARE = [
